@@ -90,12 +90,41 @@ This usually fixes `*.deps.json` or `Microsoft.Data.Sqlite` not found errors.
 - Created test project using xUnit
 - Covered major logic paths (add, get, edge cases)
 
+
+### v1.4 - Testing Improvements & Bug Fixes
+- Fixed test data contamination: Changed `GetService()` method to use a unique in-memory database name per test by using the caller member name, avoiding cross-test interference.
+- Modified `GetTax` to return `null` instead of throwing exception when no matching tax record is found. This improves API usability and makes tests simpler.
+- Added test `GetTax_ReturnsNull_WhenNoMatchFound` to verify correct behavior for non-existing data.
+---
+
+
+## Known Issues and Solutions
+
+- **.NET SDK Version Mismatch**  
+  If you have multiple .NET SDK versions installed, builds can fail or behave inconsistently.  
+  **Solution:** Add a `global.json` file to the project root specifying .NET 6 SDK version to ensure consistent builds.
+
+- **SQLite Issues in Tests (DLLs or `.deps.json` Errors)**  
+  Running tests with SQLite sometimes causes missing DLL errors or corrupted build outputs.  
+  **Solution:** For testing, switch to using only the in-memory database provider instead of SQLite to avoid these problems and speed up tests.
+
+- **In-memory Database Data Contamination Between Tests**  
+  Using the same in-memory database name in multiple tests caused data to leak across tests, causing flaky results.  
+  **Solution:** Modify `GetService()` to use unique database names per test (using `[CallerMemberName]`), isolating test data.
+
+- **`GetTax` Throws Exception When No Data Found**  
+  Originally, querying a tax rate for a non-existent city or date threw exceptions, making client code and tests complex.  
+  **Solution:** Change `GetTax` to return `null` if no matching tax is found, improving usability and simplifying tests.
+
 ---
 
 ##  Notes
 
-- The app currently uses **in-memory** database in tests and can be extended to SQLite or SQL Server.
-- If no tax is found for a city/date, the service may throw an exception (you can change this logic if needed).
+- The app currently uses **in-memory** database for unit tests to enable fast, isolated tests.
+- Production or integration scenarios can use SQLite or SQL Server with proper connection strings.
+- Returning `null` for no matching tax makes client code cleaner and avoids unexpected exceptions.
+- Using unique in-memory DB per test prevents flaky tests caused by data contamination.
+
 
 ---
 
