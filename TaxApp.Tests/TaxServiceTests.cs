@@ -6,12 +6,12 @@ using TaxApp.Services;
 
 namespace TaxApp.Tests
 {
-    public class TaxServiceTests
-    {
-        private TaxService GetService()
+        public class TaxServiceTests
+        {
+            private TaxService GetService([System.Runtime.CompilerServices.CallerMemberName] string testName = "")
         {
             var options = new DbContextOptionsBuilder<TaxContext>()
-                .UseInMemoryDatabase("TestDB")
+                .UseInMemoryDatabase("TestDB_" + testName)
                 .Options;
 
             return new TaxService(new TaxContext(options));
@@ -39,13 +39,11 @@ namespace TaxApp.Tests
         }
 
         [Fact]
-        public void GetTax_ThrowsException_WhenNoMatchFound()
+        public void GetTax_ReturnsNull_WhenNoMatchFound()
         {
             var service = GetService();
-            service.AddTax("CityA", new DateTime(2025, 1, 1), new DateTime(2025, 3, 31), 0.1m);
-
-            Assert.Throws<InvalidOperationException>(() =>
-                service.GetTax("CityA", new DateTime(2025, 7, 1)));
+            var result = service.GetTax("NonExistingCity", new DateTime(2025, 1, 1));
+            Assert.Null(result);
         }
 
         [Fact]

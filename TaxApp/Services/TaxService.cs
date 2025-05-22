@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Globalization;
 using TaxApp.Data;
 using TaxApp.Models;
 
@@ -19,19 +18,29 @@ namespace TaxApp.Services
 
         public void AddTax(string municipality, DateTime start, DateTime end, decimal rate)
         {
-            var record = new TaxRecord { Municipality = municipality, StartDate = start, EndDate = end, Rate = rate };
+            var record = new TaxRecord
+            {
+                Municipality = municipality,
+                StartDate = start,
+                EndDate = end,
+                Rate = rate
+            };
             _context.TaxRecords.Add(record);
             _context.SaveChanges();
         }
 
         public decimal? GetTax(string municipality, DateTime date)
         {
-            return _context.TaxRecords
+            var taxRecord = _context.TaxRecords
                 .Where(t => t.Municipality == municipality && date >= t.StartDate && date <= t.EndDate)
-                .AsEnumerable()
                 .OrderBy(t => (t.EndDate - t.StartDate).Days)
                 .Select(t => (decimal?)t.Rate)
                 .FirstOrDefault();
+
+            // if (taxRecord == null)
+            //     throw new InvalidOperationException($"No tax rate found for municipality '{municipality}' on date {date:yyyy-MM-dd}.");
+
+            return taxRecord;
         }
 
         public void ExportToCsv(string filename)
@@ -46,7 +55,7 @@ namespace TaxApp.Services
         {
             if (!File.Exists(filename)) return;
             using var reader = new StreamReader(filename);
-            reader.ReadLine();
+            reader.ReadLine(); // skip header
             string? line;
             while ((line = reader.ReadLine()) != null)
             {
@@ -54,7 +63,7 @@ namespace TaxApp.Services
                 if (parts.Length == 4 &&
                     DateTime.TryParse(parts[1], out var s) &&
                     DateTime.TryParse(parts[2], out var e) &&
-                    Decimal.TryParse(parts[3], out var r))
+                    decimal.TryParse(parts[3], out var r))
                 {
                     AddTax(parts[0], s, e, r);
                 }

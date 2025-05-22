@@ -40,7 +40,7 @@ namespace TaxApp
                     var dateInput = Console.ReadLine();
                     if (DateTime.TryParse(dateInput, out DateTime date))
                     {
-                        var rate = taxService.GetTax(city, date);
+                        decimal? rate = taxService.GetTax(city, date);
                         Console.WriteLine($"{city} on {date:yyyy-MM-dd} has tax rate:  {(rate.HasValue ? rate.Value.ToString("0.##", CultureInfo.InvariantCulture) : "No record")}");
                     }
                 }
