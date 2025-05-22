@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxApp", "TaxApp\TaxApp.csproj", "{072350F3-D993-A3A3-2C01-20F5105039C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxApp.Tests", "TaxApp.Tests\TaxApp.Tests.csproj", "{D56FD76D-F78E-6C7A-A92C-CE364ACC4431}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{072350F3-D993-A3A3-2C01-20F5105039C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{072350F3-D993-A3A3-2C01-20F5105039C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{072350F3-D993-A3A3-2C01-20F5105039C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{072350F3-D993-A3A3-2C01-20F5105039C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56FD76D-F78E-6C7A-A92C-CE364ACC4431}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56FD76D-F78E-6C7A-A92C-CE364ACC4431}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56FD76D-F78E-6C7A-A92C-CE364ACC4431}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56FD76D-F78E-6C7A-A92C-CE364ACC4431}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {73D87E02-8C7A-45EB-A6D4-A57713CC1B85}
+	EndGlobalSection
+EndGlobal

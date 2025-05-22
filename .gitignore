@@ -1,0 +1,48 @@
+# Build output
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider/JetBrains
+.idea/
+
+# VS Code
+.vscode/
+
+# Dotnet-specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.deps.json
+*.runtimeconfig.json
+*.runtimeconfig.dev.json
+
+# Logs
+*.log
+
+# Test results
+TestResults/
+*.TestResults.xml
+*.trx
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# Local db
+*.db
+*.sqlite
+
+# Others
+_ReSharper*/
+*.vs/
